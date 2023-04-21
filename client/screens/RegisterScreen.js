@@ -47,7 +47,7 @@ const RegisterScreen = (navData) => {
               } else Alert.alert("Registration failed. try again!");
             })
             .catch((err) => console.log(err));
-          // navData.navigation.navigate("Home");
+          navData.navigation.navigate("Home");
         }}
       >
         {(props) => (

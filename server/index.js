@@ -43,6 +43,8 @@ require("dotenv").config();
 var host = process.env.HOST || "0.0.0.0";
 const PORT = process.env.PORT || 3000;
 
+// console.log("ENV STR ----->", process.env.DB_USER);
+
 mongoose
   .connect(
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@home-list-auth.gkw3i5z.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
@@ -82,4 +84,4 @@ mongoose
 // );
 
 mongoose.set("autoIndex", false);
-mongoose.set("strictQuery", true);
+mongoose.set("strictQuery", false);
