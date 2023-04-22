@@ -41,10 +41,15 @@ const RegisterScreen = (navData) => {
         onSubmit={(values) => {
           // console.log("values from screen -->", values); // it is working
           dispatch(authAction.registerUser(values))
-            .then((result) => {
+            .then(async (result) => {
               // console.log("reg clg  -- >", result);
               if (result.success) {
-                navData.navigation.navigate("Home");
+                try {
+                  await AsyncStorage.setItem("token", result.token);
+                  navData.navigation.navigate("Home");
+                } catch (error) {
+                  console.log(error);
+                }
               } else
                 Platform.OS === "web"
                   ? window.alert("Registration failed. try again!")

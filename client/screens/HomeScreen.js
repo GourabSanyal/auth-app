@@ -1,39 +1,35 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
-const HomeScreen = () => {
-  const storeToken = async (token) => {
-    try {
-      await AsyncStorage.setItem("jwtToken", token);
-    } catch (e) {
-      console.log("Error storing token:", e);
+const HomeScreen = (props) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const loadProfile = async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (!token) {
+      props.navigation.navigate("Login");
     }
-  };
 
-  const getToken = async (token) => {
-    try {
-      const token = await AsyncStorage.getItem("token", token);
-      if (token !== null) {
-        return token;
-      }
-    } catch (e) {
-      console.log("Error retrieving token:", e);
-    }
-  };
-
-  const loadProfile = async (value) => {
-    const token = await AsyncStorage.getItem("token", value);
-    console.log(token);
+    const decoded = jwtDecode(token);
+    setName(decoded.fullName);
+    setEmail(decoded.email);
   };
 
   useEffect(() => {
-    getToken();
+    loadProfile();
   });
 
   return (
     <View>
-      <Text>HomeScreen</Text>
+      <View>
+        <Text>Welcome {name ? name : ""} </Text>
+      </View>
+      <View>
+        <Text>Your email: {email ? email : ""}</Text>
+      </View>
     </View>
   );
 };
