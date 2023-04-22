@@ -37,17 +37,17 @@ const LoginScreen = (navData) => {
         }}
         validationSchema={formSchema}
         onSubmit={(values) => {
-          console.log(values);
+          // console.log("login screen --> ", values); // working
           dispatch(authAction.loginUser(values))
             .then((result) => {
-              console.log(result);
+              // console.log("login clg --> ", result);
               if (result.success) {
                 navData.navigation.navigate("Home");
               } else {
                 Alert.alert(result.message);
               }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log("client error -->", err));
         }}
       >
         {(props) => (

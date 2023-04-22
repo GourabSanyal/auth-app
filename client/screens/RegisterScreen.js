@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import * as authAction from "../redux/actions/authAction";
 
 const formSchema = yup.object({
-  fullName: yup.string().required(),
+  fullName: yup.string().required().min(3),
   email: yup.string().email().required(),
   password: yup.string().required().min(6),
 });
@@ -39,9 +39,10 @@ const RegisterScreen = (navData) => {
         }}
         validationSchema={formSchema}
         onSubmit={(values) => {
-          console.log("values from screen -->", values); // it is working
+          // console.log("values from screen -->", values); // it is working
           dispatch(authAction.registerUser(values))
             .then((result) => {
+              // console.log("reg clg  -- >", result);
               if (result) {
                 navData.navigation.navigate("Home");
               } else Alert.alert("Registration failed. try again!");

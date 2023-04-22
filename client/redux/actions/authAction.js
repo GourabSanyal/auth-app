@@ -5,48 +5,9 @@ export const LOGIN_USER_FAIL = "LOGIN_USER_FAIL";
 
 import axios from "axios";
 
-const BASE_URL = "http://192.168.56.1:3000";
+const BASE_URL = "http://localhost:3000";
 
-// export const registerUser = (authData) => {
-//   const { fullName, email, password } = authData;
-
-//   return async (dispatch) => {
-//     //logic to write post req to register a user
-//     const result = await fetch(`${BASE_URL}/api/users/register`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         fullName,
-//         email,
-//         password,
-//       }),
-//     });
-
-//     const resultData = await result.json();
-
-//     if (!resultData)
-//       try {
-//         console.log("auh data -->", authData);
-//       } catch (error) {
-//         console.log("error -->", error);
-//       }
-//     console.log("value from actions --> ", resultData);
-
-//     if (resultData.success) {
-//       dispatch({
-//         type: REGISTER_USER_SUCCESS,
-//         payload: JSON.stringify(resultData),
-//       });
-//     } else {
-//       dispatch({
-//         type: REGISTER_USER_FAIL,
-//         payload: JSON.stringify(resultData),
-//       });
-//     }
-//   };
-// };
+// const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const registerUser = (authData) => {
   const { fullName, email, password } = authData;
@@ -64,7 +25,7 @@ export const registerUser = (authData) => {
       if (result.data.success) {
         dispatch({
           type: REGISTER_USER_SUCCESS,
-          payload: JSON.stringify(result.data),
+          payload: result.data,
         });
       } else {
         dispatch({
@@ -73,6 +34,7 @@ export const registerUser = (authData) => {
         });
       }
     } catch (error) {
+      // console.log("1st action error -->", error);
       if (error.message === "Network Error") {
         if (error.response) {
           // The request was made and the server responded with a status code
@@ -97,10 +59,12 @@ export const registerUser = (authData) => {
 export const loginUser = (authData) => {
   const { email, password } = authData;
 
+  // console.log("actions email password", authData);
+
   return async (dispatch) => {
     //logic to write post req to login a user
 
-    const result = await fetch(`${BASE_URL}/api/users/profile`, {
+    const result = await fetch(`${BASE_URL}/api/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -112,7 +76,7 @@ export const loginUser = (authData) => {
     });
 
     const resultData = await result.json();
-    console.log(resultData);
+    // console.log("login  action --> ", resultData);
 
     if (resultData.success) {
       dispatch({
