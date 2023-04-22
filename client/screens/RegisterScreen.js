@@ -16,6 +16,7 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 
 import * as authAction from "../redux/actions/authAction";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const formSchema = yup.object({
   fullName: yup.string().required().min(3),
@@ -42,9 +43,10 @@ const RegisterScreen = (navData) => {
           // console.log("values from screen -->", values); // it is working
           dispatch(authAction.registerUser(values))
             .then(async (result) => {
-              // console.log("reg clg  -- >", result);
+              console.log("reg clg  -- >", result);
               if (result.success) {
                 try {
+                  console.log("reg screen --> ", result);
                   await AsyncStorage.setItem("token", result.token);
                   navData.navigation.navigate("Home");
                 } catch (error) {

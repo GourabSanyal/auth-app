@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
@@ -18,17 +18,31 @@ const HomeScreen = (props) => {
     setEmail(decoded.email);
   };
 
+  const logout = (props) => {
+    AsyncStorage.removeItem("token")
+      .then(() => {
+        props.navigation.replace("Login");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     loadProfile();
   });
 
   return (
-    <View>
+    <View style={styles.container}>
       <View>
-        <Text>Welcome {name ? name : ""} </Text>
+        <Text style={styles.text}>Welcome {name ? name : ""} </Text>
       </View>
       <View>
-        <Text>Your email: {email ? email : ""}</Text>
+        <Text style={styles.text}>
+          Your email: {email ? email : ""}
+          <Text></Text>{" "}
+        </Text>
+        <Button title="Logout" onPress={() => logout(props)} />
       </View>
     </View>
   );
@@ -36,4 +50,14 @@ const HomeScreen = (props) => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    fontSize: 22,
+  },
+});

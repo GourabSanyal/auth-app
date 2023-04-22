@@ -13,48 +13,33 @@ export const registerUser = (authData) => {
   const { fullName, email, password } = authData;
 
   return async (dispatch) => {
-    try {
-      const result = await axios.post(`${BASE_URL}/api/users/register`, {
+    // logic to make a post to REGISTER the user
+    const result = await fetch(`${BASE_URL}/api/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         fullName,
         email,
         password,
+      }),
+    });
+
+    const resultData = await result.json();
+
+    if (resultData.success) {
+      dispatch({
+        type: REGISTER_USER_SUCCESS,
+        payload: resultData,
       });
-
-      // console.log("value from actions --> ", result.data);
-
-      const resultData = await result.json();
-
-      if (resultData.success) {
-        dispatch({
-          type: REGISTER_USER_SUCCESS,
-          payload: resultData,
-        });
-      } else {
-        dispatch({
-          type: REGISTER_USER_FAIL,
-          payload: resultData,
-        });
-      }
-    } catch (error) {
-      // console.log("1st action error -->", error);
-      if (error.message === "Network Error") {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log("data -->", error.response.data);
-          console.log("status -->", error.response.status);
-          console.log("headers --> ", error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          console.log("error req -->", error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log("something else Error -->", error.message);
-        }
-      }
+    } else {
+      dispatch({
+        type: REGISTER_USER_FAIL,
+      });
     }
+
+    return resultData;
   };
 };
 
