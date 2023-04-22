@@ -43,9 +43,12 @@ const RegisterScreen = (navData) => {
           dispatch(authAction.registerUser(values))
             .then((result) => {
               // console.log("reg clg  -- >", result);
-              if (result) {
+              if (result.success) {
                 navData.navigation.navigate("Home");
-              } else Alert.alert("Registration failed. try again!");
+              } else
+                Platform.OS === "web"
+                  ? window.alert("Registration failed. try again!")
+                  : Alert.alert("Registration failed. try again!");
             })
             .catch((err) => console.log(err));
           navData.navigation.navigate("Home");

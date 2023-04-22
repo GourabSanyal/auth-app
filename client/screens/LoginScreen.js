@@ -40,11 +40,13 @@ const LoginScreen = (navData) => {
           // console.log("login screen --> ", values); // working
           dispatch(authAction.loginUser(values))
             .then((result) => {
-              // console.log("login clg --> ", result);
+              console.log("login clg --> ", result);
               if (result.success) {
                 navData.navigation.navigate("Home");
               } else {
-                Alert.alert(result.message);
+                Platform.OS === "web"
+                  ? window.alert(result.message)
+                  : Alert.alert(result.message);
               }
             })
             .catch((err) => console.log("client error -->", err));

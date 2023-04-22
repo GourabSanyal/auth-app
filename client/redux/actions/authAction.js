@@ -22,15 +22,17 @@ export const registerUser = (authData) => {
 
       // console.log("value from actions --> ", result.data);
 
-      if (result.data.success) {
+      const resultData = await result.json();
+
+      if (resultData.success) {
         dispatch({
           type: REGISTER_USER_SUCCESS,
-          payload: result.data,
+          payload: resultData,
         });
       } else {
         dispatch({
           type: REGISTER_USER_FAIL,
-          payload: JSON.stringify(result.data),
+          payload: resultData,
         });
       }
     } catch (error) {
@@ -81,11 +83,12 @@ export const loginUser = (authData) => {
     if (resultData.success) {
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: JSON.stringify(resultData),
+        payload: resultData,
       });
     } else {
       dispatch({
         type: LOGIN_USER_FAIL,
+        // payload: resultData,
       });
     }
 
