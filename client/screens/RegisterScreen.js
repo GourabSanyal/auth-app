@@ -40,10 +40,10 @@ const RegisterScreen = (navData) => {
         }}
         validationSchema={formSchema}
         onSubmit={(values) => {
-          // console.log("values from screen -->", values); // it is working
+          // console.log("input -->", values); // it is working
           dispatch(authAction.registerUser(values))
             .then(async (result) => {
-              console.log("reg clg  -- >", result);
+              // console.log("reg clg  -- >", result);
               if (result.success) {
                 try {
                   console.log("reg screen --> ", result);
@@ -57,7 +57,7 @@ const RegisterScreen = (navData) => {
                   ? window.alert("Registration failed. try again!")
                   : Alert.alert("Registration failed. try again!");
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log("reg user  error -->", err));
           navData.navigation.navigate("Home");
         }}
       >

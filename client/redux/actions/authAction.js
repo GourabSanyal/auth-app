@@ -3,14 +3,17 @@ export const REGISTER_USER_FAIL = "REGISTER_USER_FAIL";
 export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
 export const LOGIN_USER_FAIL = "LOGIN_USER_FAIL";
 
-import axios from "axios";
+require("dotenv").config({ path: "./.env" });
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = process.env.BASE_URL;
+console.log("Key ", BASE_URL);
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const registerUser = (authData) => {
   const { fullName, email, password } = authData;
+
+  // console.log("reg user action --> ", authData);
 
   return async (dispatch) => {
     // logic to make a post to REGISTER the user
@@ -27,6 +30,7 @@ export const registerUser = (authData) => {
     });
 
     const resultData = await result.json();
+    console.log("result data --> ", resultData);
 
     if (resultData.success) {
       dispatch({
