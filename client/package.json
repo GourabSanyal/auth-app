@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "androidUsbDebug": "expo start --localhost --android",
     "eject": "expo eject",
-    "web-build": "expo build:web"
+    "web-build": "expo build:web",
+    "clean" : "npm cache clean --force"
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.2",
