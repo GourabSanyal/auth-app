@@ -3,9 +3,9 @@ export const REGISTER_USER_FAIL = "REGISTER_USER_FAIL";
 export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
 export const LOGIN_USER_FAIL = "LOGIN_USER_FAIL";
 
-require("dotenv").config({ path: "./.env" });
+// require("dotenv").config({ path: "./.env" });
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = "https://auth-app-server-wodz.onrender.com";
 console.log("Key ", BASE_URL);
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL;
