@@ -31,4 +31,4 @@ Once you have successfully registered, you will be taken to a welcome screen tha
 
 Following the steps mentioned previously until the 4th point, run `npm run web` to create a web build.
 
-You may be prompted to install additional dependencies such as `react-router-dom` and a few more. You can install these dependencies manually and then run the web build again.
+You may be prompted to install additional dependencies such as `react-router-dom`,`webpack-dev-server@~3.11.0`, `@expo/webpack-config@`. You can install these dependencies manually and then run the web build again.
