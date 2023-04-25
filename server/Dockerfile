@@ -1,16 +1,6 @@
-FROM node:16.10-slim
-
-# setting working directory
+FROM node:alpine
 WORKDIR /app
-
-# installing dependencies
-COPY . /app
-
-#  running app
+COPY package.json .
 RUN npm install
-
-#  setting port
-EXPOSE 3000
-
-# strat app
-CMD ["npm start"]
+COPY . .
+CMD [ "npm", "start" ]
